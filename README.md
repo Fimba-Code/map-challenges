@@ -1,5 +1,5 @@
 # map-challenges
 
 <p align="center">
-  <img src="screenshots/map-app.PNG?raw=true" />
+  <img src="/screenshoots/map-app.PNG" />
 </p>
