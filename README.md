@@ -7,6 +7,6 @@
 Criar uma App que use mapa e consiga calcular a distância entre dois pontos (A to B) e de seguida mostrar os resultados ao usuário e  mostra o percurso entre os pontos ao usuário.
 
 ### Soluções
-- [Swift](Swift/README.md) by @marcoswmv
-- [Expo (RN)](rn-expo-map/readme.md) by @brunokiafuka
+- [Swift](/Swift) by @marcoswmv
+- [Expo (RN)](/rn-expo-map) by @brunokiafuka
 
