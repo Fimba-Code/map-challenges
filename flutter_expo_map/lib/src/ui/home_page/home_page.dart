@@ -262,13 +262,22 @@ class _HomePageState extends State<HomePage> {
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {
                                 return Container(
-                                  margin: EdgeInsets.only(bottom: 10),
+                                  margin: EdgeInsets.only(bottom: 6),
                                   width: MediaQuery.of(context).size.width,
                                   alignment: Alignment.center,
-                                  child: Text(
-                                    "Distance: ${snapshot.data[0].distanceDesc}",
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 25),
+                                  child: Column(
+                                    children: <Widget>[
+                                      Text(
+                                        "Distance: ${snapshot.data[0].distanceDesc}",
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 20),
+                                      ),
+                                      Text(
+                                        "Duration: ${snapshot.data[0].durationDesc}",
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 20),
+                                      ),
+                                    ],
                                   ),
                                 );
                               } else {
@@ -280,46 +289,59 @@ class _HomePageState extends State<HomePage> {
                       bottom: 0,
                       child: Align(
                         alignment: Alignment.bottomCenter,
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          margin: EdgeInsets.only(bottom: 40),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                              Container(
-                                width: 50,
-                                height: 50,
-                              ),
-                              GoButton(
-                                title: "GO",
-                                onPressed: () {
-                                  placeBloc.getDuration(
-                                      "${_currentPosition.latitude}, ${_currentPosition.longitude}",
-                                      "${place.lat}, ${place.lng}");
-                                  _addMarker(
-                                      "Local do Evento",
-                                      PlaceModel("to_address", "to_address",
-                                          place.lat, place.lng));
+                        child: StreamBuilder<List<DurationModel>>(
+                            stream: placeBloc.durationStream,
+                            builder: (context, snapshot) {
+                              return AnimatedContainer(
+                                duration: Duration(milliseconds: 1000),
+                                width: MediaQuery.of(context).size.width,
+                                margin: snapshot.hasData
+                                    ? EdgeInsets.only(bottom: 50)
+                                    : EdgeInsets.only(bottom: 5),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: <Widget>[
+                                    Container(
+                                      width: 50,
+                                      height: 50,
+                                    ),
+                                    GoButton(
+                                      title: "GO",
+                                      onPressed: () {
+                                        placeBloc.getDuration(
+                                            "${_currentPosition.latitude}, ${_currentPosition.longitude}",
+                                            "${place.lat}, ${place.lng}");
+                                        _addMarker(
+                                            "Local do Evento",
+                                            PlaceModel(
+                                                "to_address",
+                                                "to_address",
+                                                place.lat,
+                                                place.lng));
 
-                                  addPolyline();
-                                  LatLngBounds bound = LatLngBounds(
-                                      southwest: LatLng(
-                                          _currentPosition.latitude,
-                                          _currentPosition.longitude),
-                                      northeast: LatLng(place.lat, place.lng));
-                                  CameraUpdate u2 =
-                                      CameraUpdate.newLatLngBounds(bound, 40);
-                                  _controller.animateCamera(u2);
-                                },
-                              ),
-                              Container(
-                                width: 50,
-                                height: 50,
-                              )
-                            ],
-                          ),
-                        ),
+                                        addPolyline();
+                                        LatLngBounds bound = LatLngBounds(
+                                            southwest: LatLng(
+                                                _currentPosition.latitude,
+                                                _currentPosition.longitude),
+                                            northeast:
+                                                LatLng(place.lat, place.lng));
+                                        CameraUpdate u2 =
+                                            CameraUpdate.newLatLngBounds(
+                                                bound, 40);
+                                        _controller.animateCamera(u2);
+                                      },
+                                    ),
+                                    Container(
+                                      width: 50,
+                                      height: 50,
+                                    )
+                                  ],
+                                ),
+                              );
+                            }),
                       ))
                 ],
               );

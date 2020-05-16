@@ -21,3 +21,10 @@ Criar uma App que use mapa e consiga calcular a distância entre dois pontos (A 
   <img src="screenshoots/expo-route.png" width="150" />
 </div>
 
+- [FLUTTER](/flutter_expo_map) by @MarcioQuimbundo
+<div align="center">
+  <img src="screenshoots/flutter_expo_map1.jpg" width="150" />
+  <img src="screenshoots/flutter_expo_map2.jpg" width="150" />
+  <img src="screenshoots/flutter_expo_map3.jpg" width="150" />
+</div>
+
